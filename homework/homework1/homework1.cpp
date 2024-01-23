@@ -92,6 +92,10 @@ public:
 	struct Material {
 		glm::vec4 baseColorFactor = glm::vec4(1.0f);
 		uint32_t baseColorTextureIndex;
+        uint32_t metallicRoughnessTextureIndex;
+        uint32_t normalTextureIndex;
+        float metallicFactor = 1.0f;
+        float roughnessFactor = 1.0f;
 	};
 
 	// Contains the texture for a single glTF image
@@ -197,6 +201,18 @@ public:
 			// Get base color texture index
 			if (glTFMaterial.values.find("baseColorTexture") != glTFMaterial.values.end()) {
 				materials[i].baseColorTextureIndex = glTFMaterial.values["baseColorTexture"].TextureIndex();
+			}
+            if (glTFMaterial.values.find("metallicRoughnessTexture") != glTFMaterial.values.end()) {
+                materials[i].metallicRoughnessTextureIndex = glTFMaterial.values["metallicRoughnessTexture"].TextureIndex();
+            }
+            if (glTFMaterial.values.find("normalTexture") != glTFMaterial.values.end()) {
+                materials[i].normalTextureIndex = glTFMaterial.values["normalTexture"].TextureIndex();
+            }
+			if (glTFMaterial.values.find("metallicFactor") != glTFMaterial.values.end()) {
+				materials[i].metallicFactor = (float)glTFMaterial.values["metallicFactor"].Factor();
+			}
+			if (glTFMaterial.values.find("roughnessFactor") != glTFMaterial.values.end()) {
+				materials[i].roughnessFactor = (float)glTFMaterial.values["roughnessFactor"].Factor();
 			}
 		}
 	}
